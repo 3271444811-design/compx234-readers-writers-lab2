@@ -186,23 +186,35 @@ def main() -> None:
 
     #TODO: Create at least 3 Reader threads.
     readers = [
-        Reader(reader_id=1, monitor=monitor)
+        Reader(reader_id=1, monitor=monitor, rounds=3),
+        Reader(reader_id=2, monitor=monitor, rounds=3),
+        Reader(reader_id=3, monitor=monitor, rounds=2),
     ]
     
     #TODO: Create at least 2 writer threads.
     writers = [
-        Writer(writer_id=1, monitor=monitor)
+        Writer(writer_id=1, monitor=monitor, rounds=2),
+        Writer(writer_id=2, monitor=monitor, rounds=2),
     ]
 
     all_threads = readers + writers
     
     # TODO: Start all threads
-
+    # Start all threads
+    for thread in all_threads:
+        thread.start()
     
     # TODO: Wait for all threads to finish
-
+    # Wait for all threads to finish
+    for thread in all_threads:
+        thread.join()
 
     # TODO: Print final message that simulation completed
+    # Print final message
+    print("\n" + "="*50)
+    print("SIMULATION COMPLETED SUCCESSFULLY!")
+    print("All readers and writers have finished execution.")
+    print("="*50)
 
 
 if __name__ == "__main__":
