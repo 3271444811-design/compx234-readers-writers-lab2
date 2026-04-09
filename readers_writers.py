@@ -119,7 +119,13 @@ class ReadersWritersMonitor:
         """
         with self.condition:
             # TODO: Replace 'pass' with your logic
-            pass
+            # Decrement active writer count
+        self.active_writers -= 1
+        print(f"[Monitor] Writer {writer_id} STOPS writing. "
+              f"Active readers = {self.active_readers}, Active writers = {self.active_writers}")
+        
+        # Wake all waiting threads
+        self.condition.notify_all()
 
 # Donot Change this
 class Reader(threading.Thread):
